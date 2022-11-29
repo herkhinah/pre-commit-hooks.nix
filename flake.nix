@@ -12,8 +12,12 @@
     url = "github:hercules-ci/gitignore.nix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  inputs.fenix = {
+    url = "github:nix-community/fenix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-  outputs = { self, nixpkgs, flake-utils, gitignore, nixpkgs-stable, ... }:
+  outputs = { self, nixpkgs, flake-utils, gitignore, nixpkgs-stable, fenix, ... }:
     let
       defaultSystems = [
         "aarch64-linux"
@@ -34,8 +38,8 @@
     }
     // flake-utils.lib.eachSystem defaultSystems (system:
       let
-        exposed = import ./nix { nixpkgs = nixpkgs; inherit system; gitignore-nix-src = gitignore; isFlakes = true; };
-        exposed-stable = import ./nix { nixpkgs = nixpkgs-stable; inherit system; gitignore-nix-src = gitignore; isFlakes = true; };
+        exposed = import ./nix { nixpkgs = nixpkgs; inherit system; gitignore-nix-src = gitignore; isFlakes = true; inherit fenix; };
+        exposed-stable = import ./nix { nixpkgs = nixpkgs-stable; inherit system; gitignore-nix-src = gitignore; isFlakes = true; inherit fenix; };
       in
       {
         packages = exposed.packages;

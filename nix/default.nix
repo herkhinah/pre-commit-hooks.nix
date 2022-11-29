@@ -1,7 +1,9 @@
 { system ? builtins.currentSystem
 , nixpkgs
+, lib
 , gitignore-nix-src
 , isFlakes ? false
+, fenix
 }:
 let
   overlay =
@@ -29,7 +31,10 @@ let
     };
 in
 import nixpkgs {
-  overlays = [ overlay ];
+  overlays = [ 
+    overlay
+    (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs)
+  ];
   # broken is needed for hindent to build
   config = { allowBroken = true; };
   inherit system;

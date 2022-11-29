@@ -4,9 +4,7 @@
 , cabal-fmt
 , cabal2nix
 , callPackage
-, cargo
 , clang-tools
-, clippy
 , deadnix
 , dhall
 , elmPackages
@@ -29,7 +27,6 @@
 , ormolu
 , python39Packages
 , runCommand
-, rustfmt
 , shellcheck
 , shfmt
 , statix
@@ -43,7 +40,7 @@
 }:
 
 {
-  inherit actionlint alejandra cabal-fmt cabal2nix cargo clang-tools clippy deadnix dhall hadolint hindent hlint hpack html-tidy nix-linter nixfmt nixpkgs-fmt ormolu rustfmt shellcheck shfmt statix stylish-haskell stylua go mdsh revive;
+  inherit actionlint alejandra cabal-fmt cabal2nix clang-tools deadnix dhall hadolint hindent hlint hpack html-tidy nix-linter nixfmt nixpkgs-fmt ormolu shellcheck shfmt statix stylish-haskell stylua go mdsh revive;
   inherit (elmPackages) elm-format elm-review elm-test;
   # TODO: these two should be statically compiled
   inherit (haskellPackages) brittany fourmolu;

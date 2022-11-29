@@ -58,6 +58,7 @@ in
           };
         };
         config = {
+	  nixpkgs.overlays = [ (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs) ];
           checks = lib.optionalAttrs cfg.check.enable { pre-commit = cfg.settings.run; };
           pre-commit.settings = { pkgs, ... }: {
             rootSrc = self.outPath;
